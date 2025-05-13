@@ -56,19 +56,21 @@ app.get("/compose", function(req, res){
   res.render("compose");
 });
 
-app.post("/compose", function(req, res){
 
+app.post("/compose", async (req, res) => {
   const post = new Post({
-    title:req.body.postTitle,
-    content:req.body.postBody
+    title: req.body.postTitle,
+    content: req.body.postBody
   });
 
-  post.save();
-  
- 
-
-  res.redirect("/");
-
+  try{
+    await post.save();
+    res.redirect("/");
+  }
+  catch (err) {
+    console.error("Error saving post:", err);
+    res.status(500).send("Something went wrong.");
+  }
 });
 
 
@@ -94,5 +96,5 @@ app.get("/posts/:postId", function(req, res){
 
 
 app.listen(3000, function() {
-  console.log("Server started on port 3000");
+  console.log("Server started at: http://localhost:3000");
 });
