@@ -13,6 +13,8 @@ Start journaling today, one entry at a time.
 
 "Capture today, revisit tomorrow."`;
 
+//this iscomment
+
 router.get("/", (req, res) => {
   res.render("about", {aboutContent: aboutContent});
 });
